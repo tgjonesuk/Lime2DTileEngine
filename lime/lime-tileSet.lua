@@ -152,11 +152,12 @@ function TileSet:new(data, map, firstgid, rootDir)
 			
 			-- Check to see if on a Retina display
 			if display.contentScaleX == 0.5 then
-				
+
 				self.retinaSource = utils:addSuffixToFileName(self.source, "@2x")
 
 				-- Check if there is a HD version of the tileset image
-				local path = system.pathForFile(self.rootDir .. self.retinaSource, system.ResourceDirectory)
+				local path = system.pathForFile(utils:stripFilenameFromPath(map.filename) .. self.retinaSource, 
+					system.ResourceDirectory)
 				
 				if(lime.isDebugModeEnabled() and not path) then
 					print("Lime-Lychee: If you aren't intending to use Retina spritesheets then you can ignore the previous warning.")
