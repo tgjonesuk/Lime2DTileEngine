@@ -115,11 +115,6 @@ function TileSet:new(data, map, firstgid, rootDir)
 	if(self.source) then
 
 		local filename = utils:getFilenameFromPath(self.source)
-		 		 
-		if string.find( self.source, "../" ) then
-			print("Lime-Lychee: Absoulute paths are not supported for TileSets. You may want to edit your map in a text editor to fix this." )
-			return
-		end
 		
 		self.rootDir = rootDir or "" -- "maps/"
 		
@@ -184,7 +179,8 @@ function TileSet:new(data, map, firstgid, rootDir)
 				
 			end
 
-			self.spriteSheet = sprite.newSpriteSheet(self.rootDir .. self.source, system.ResourceDirectory, self.tilewidth * self.tileXScale, self.tileheight * self.tileYScale)
+			self.spriteSheet = sprite.newSpriteSheet(utils:stripFilenameFromPath(map.filename) ..
+				self.source, system.ResourceDirectory, self.tilewidth * self.tileXScale, self.tileheight * self.tileYScale)
 
 			self.tileCount = self.spriteSheet.frameCount
 
